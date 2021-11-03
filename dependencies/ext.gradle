@@ -1,0 +1,6 @@
+ext {
+  appVersionCode = 1
+  appVersionName = '1.0.0'
+  adMobCode = 'ca-app-pub-3940256099942544~3347511713'
+  adMobKey = 'ca-app-pub-3940256099942544/2247696110'
+}

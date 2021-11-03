@@ -14,3 +14,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+google-services.json
+dependencies/release.keystore
+dependencies/signing.gradle
