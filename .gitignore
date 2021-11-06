@@ -15,5 +15,6 @@
 .cxx
 local.properties
 google-services.json
-dependencies/release.keystore
-dependencies/signing.gradle
+dependencies
+!dependencies/ext.gradle
+google-play-service.json

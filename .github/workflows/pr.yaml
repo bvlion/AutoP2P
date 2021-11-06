@@ -1,0 +1,82 @@
+name: pr-test
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+  pull_request_target:
+    branches:
+      - 'main'
+
+jobs:
+  test:
+    env:
+      DEBUG_SERVICES_JSON: ${{ secrets.DEBUG_SERVICES_JSON }}
+      DEBUG_SIGNING_GRADLE: ${{ secrets.SIGNING_GRADLE }}
+      DEBUG_KEYSTORE: ${{ secrets.DEBUG_KEYSTORE }}
+    runs-on: macos-latest
+    if: |
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+      (github.event_name != 'pull_request_target' && github.actor != 'dependabot[bot]')
+    strategy:
+      matrix:
+        api-level: [21, 24, 29]
+    steps:
+      - name: Checkout
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: actions/checkout@v2
+        
+      - name: Checkout PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Setting Debug Files
+        run: |
+          echo ${DEBUG_SERVICES_JSON} | base64 -d > app/src/debug/google-services.json
+          echo ${DEBUG_SIGNING_GRADLE} | base64 -d > dependencies/signing.gradle
+          echo ${DEBUG_KEYSTORE} | base64 -d > dependencies/debug.keystore
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Unit Test
+        run: ./gradlew clean testDebugUnitTest
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Unit Test Report
+        uses: JamesIves/github-pages-deploy-action@4.0.0
+        with:
+          branch: gh-pages
+          folder: app/build/reports/tests/testDebugUnitTest
+
+      - name: UI Test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          script: ./gradlew connectedCheck
+
+      - name: UI Test Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: instrumentation_test_report
+          path: app/build/reports/androidTests/connected/
+
+      - name: Slack Notification
+        if: always()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,action,took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
