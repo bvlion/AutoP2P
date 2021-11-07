@@ -51,7 +51,7 @@ android {
 //                artifactType = "AAB"
 //                artifactPath = "app/build/outputs/bundle/release/app-release.aab"
                 artifactType = "APK"
-                artifactPath = "app/build/outputs/bundle/release/app-release.apk"
+                artifactPath = "app/build/outputs/apk/release/app-release.apk"
                 releaseNotesFile = "dependencies/app-distribution-note.txt"
                 groups = "home"
             }

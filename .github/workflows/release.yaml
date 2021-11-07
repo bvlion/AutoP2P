@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setting Debug Files
+      - name: Setting Release Publish Files
         run: |
           mkdir -p app/src/release
           echo ${RELEASE_SERVICES_JSON} | base64 -d > app/src/release/google-services.json
