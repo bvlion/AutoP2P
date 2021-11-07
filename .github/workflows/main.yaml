@@ -42,5 +42,7 @@ jobs:
 
       - name: App Distribution Upload
         run: |
-          echo `git log -1` > dependencies/app-distribution-note.txt
+          git log -1 --format="%s [%ad] %an@%h" > dependencies/app-distribution-note.txt
+          echo "" >> dependencies/app-distribution-note.txt
+          git log --merges --since=6am --first-parent --reverse --pretty=format:"* %s [%ad] %an@%h" >> dependencies/app-distribution-note.txt
           ./gradlew appDistributionUploadRelease

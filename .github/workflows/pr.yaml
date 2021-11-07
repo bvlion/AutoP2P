@@ -77,6 +77,8 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          fields: repo,message,action,took
+          fields: repo,message,commit,author,action,eventName,ref,workflow
+          username: PR_BOT
+
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
