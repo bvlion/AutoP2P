@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
   fun useAppContext() {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    assertEquals("net.ambitious.android.autop2p", appContext.packageName)
+    assertEquals("net.ambitious.android.autop2p.debug", appContext.packageName)
   }
 }

@@ -47,13 +47,14 @@ task setReleaseMessage {
         extText += '\'\n'
         extText += '}'
 
-        def extFile = new FileWriter('dependencies/ext.gradle').
+        def extFile = new FileWriter('dependencies/ext.gradle')
         extFile.write(extText)
         extFile.close()
 
         def enFile = new FileWriter('app/src/main/play/release-notes/en-US/default.txt')
         enFile.write(json.english)
         enFile.close()
+
         def jaFile = new FileWriter('app/src/main/play/release-notes/ja-JP/default.txt')
         jaFile.write(json.japanese)
         jaFile.close()
