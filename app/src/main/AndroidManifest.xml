@@ -3,17 +3,18 @@
     package="net.ambitious.android.autop2p">
 
     <application
-        android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.AutoP2P">
+      android:name=".ProjectApplication"
+      android:allowBackup="false"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/app_name"
+      android:roundIcon="@mipmap/ic_launcher_round"
+      android:supportsRtl="true"
+      android:theme="@style/Theme.AutoP2P">
         <activity
-            android:name="net.ambitious.android.autop2p.MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AutoP2P.NoActionBar">
+          android:name="net.ambitious.android.autop2p.ui.main.MainActivity"
+          android:exported="true"
+          android:label="@string/app_name"
+          android:theme="@style/Theme.AutoP2P.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

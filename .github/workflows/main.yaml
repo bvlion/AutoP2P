@@ -12,6 +12,9 @@ jobs:
       RELEASE_SIGNING_GRADLE: ${{ secrets.SIGNING_GRADLE }}
       RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE }}
       FIREBASE_TOKEN:  ${{ secrets.FIREBASE_TOKEN }}
+      SS_URL:  ${{ secrets.SS_URL }}
+      AD_MOB_CODE:  ${{ secrets.AD_MOB_CODE }}
+      AD_MOB_KEY:  ${{ secrets.AD_MOB_KEY }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,6 +32,11 @@ jobs:
         with:
           java-version: 11
 
+      - name: Create Release Messages
+        run: |
+          curl -L "${SS_URL}" > release_message.json
+          ./gradlew setReleaseMessage
+
       - name: Build
         run: ./gradlew clean assembleRelease
 
@@ -44,5 +52,5 @@ jobs:
         run: |
           git log -1 --format="%s [%ad] %an@%h" > dependencies/app-distribution-note.txt
           echo "" >> dependencies/app-distribution-note.txt
-          git log --merges --since=6am --first-parent --reverse --pretty=format:"* %s [%ad] %an@%h" >> dependencies/app-distribution-note.txt
+          git log --merges --first-parent --reverse --pretty=format:"* %s [%ad] %an@%h" >> dependencies/app-distribution-note.txt
           ./gradlew appDistributionUploadRelease
