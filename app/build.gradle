@@ -7,7 +7,7 @@ plugins {
     id 'com.google.firebase.crashlytics'
     id 'com.google.android.gms.oss-licenses-plugin'
     id 'com.google.firebase.appdistribution'
-    id 'com.github.triplet.play' version '3.6.0'
+    id 'com.github.triplet.play' version '3.7.0'
 }
 
 android {
