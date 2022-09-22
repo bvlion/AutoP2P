@@ -99,7 +99,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     // dagger-hilt
-    def hilt_version = captureVersion(implementation('com.google.dagger:hilt-android:2.40.4'))
+    def hilt_version = captureVersion(implementation('com.google.dagger:hilt-android:2.44'))
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // data store
