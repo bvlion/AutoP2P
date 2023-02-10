@@ -12,7 +12,7 @@ buildscript {
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
         classpath 'com.google.android.gms:oss-licenses-plugin:0.10.4'
         classpath 'com.google.firebase:firebase-appdistribution-gradle:2.2.0'
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.4'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.45'
         classpath 'org.json:json:20210307'
     }
 }
